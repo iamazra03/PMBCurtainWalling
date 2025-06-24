@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greenwich Project - Details</title>
+  <link rel="stylesheet" href="styles.css" />
+   <style>
+     main {
+      max-width: 1000px;
+      margin: 140px auto 2rem auto; 
+      padding: 0 1rem;
+    }
+
+    main h1 {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    main img.main-image {
+    width: 85%;
+    max-width: 660px;
+    border-radius: 12px;
+    margin: 1.2rem auto 2rem auto;
+    display: block;
+    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 110px;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    transition: height 0.3s ease, box-shadow 0.3s ease;
+    padding: 0 20px;
+    }
+
+    .navbar.scrolled {
+    height: 70px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    }
+
+    .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    }
+
+    .logo {
+    height: 100px;
+    width: auto;
+    transition: height 0.3s ease;
+    }
+
+    .navbar.scrolled .logo {
+    height: 70px;
+    }
+
+    .logo-text {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #2c5282;
+    transition: font-size 0.3s ease;
+    }
+
+    .navbar.scrolled .logo-text {
+    font-size: 1rem;
+    }
+
+    .back-link {
+    background: linear-gradient(135deg, #2c5282, #1f3a66);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(44, 82, 130, 0.6);
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    height: fit-content;
+    align-self: center;
+    flex-shrink: 0; /* küçülmesin */
+    }
+
+
+    section.project-info {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      background: #f0f4f8;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: inset 0 0 10px rgba(44, 82, 130, 0.1);
+    }
+
+    p.project-description {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    
+    .gallery-wrapper {
+    max-width: 1000px;
+    margin: 2rem auto;
+    position: relative;
+    }
+
+    .gallery {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;     
+    }
+
+    .gallery::-webkit-scrollbar {
+    display: none; 
+    }
+
+    .gallery-image {
+    flex: 0 0 32%;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    }
+
+    .gallery-image:hover {
+    transform: scale(1.04);
+    }
+
+    /* Scroll */
+    .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(44, 82, 130, 0.8);
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    width: 45px;
+    height: 80px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    z-index: 5;
+    }
+
+    .scroll-btn:hover {
+    background-color: rgba(44, 82, 130, 1);
+    }
+
+    .left-btn {
+    left: -55px;
+    }
+
+    .right-btn {
+    right: -55px;
+    }
+
+
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+    }
+
+    .modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(255,255,255,0.2);
+    }
+
+@media (max-width: 768px) {
+  .left-btn {
+    left: 0;
+  }
+  .right-btn {
+    right: 0;
+  }
+  .scroll-btn {
+    width: 36px;
+    height: 60px;
+    font-size: 2rem;
+    top: 40%; 
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/PMB.jpg" alt="PMB Curtainwalling Ltd Logo" class="logo" />
+        <span class="logo-text">PMB Curtainwalling Ltd</span>
+      </div>
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Greenwich Design District</h1>
+    <img src="images/4-Greenwich/1.jpg" alt="Greenwich Project" class="main-image" />
+
+    <section class="project-info">
+      <p><strong>Project:</strong> Greenwich Design District</p>
+      <p><strong>Client:</strong> Ardmore - Tuna Yapi UK</p>
+      <p><strong>Purpose:</strong> Construction of Commercial Office Buildings</p>
+      <p><strong>Location:</strong> Greenwich, London</p>
+    </section>
+
+    <p class="project-description">
+     A creative urban hub with unique façade elements — our expertise 
+     ensured perfect integration of bespoke curtain wall systems for multiple blocks.
+    </p>
+
+    <div class="gallery-wrapper">
+      <button class="scroll-btn left-btn" onclick="scrollGallery(-1)">‹</button>
+
+      <div class="gallery" id="gallery">
+        <img src="images/4-Greenwich/2.jpg" class="gallery-image" alt="Greenwich Image 2" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/3.jpg" class="gallery-image" alt="Greenwich Image 3" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/4.jpeg" class="gallery-image" alt="Greenwich Image 4" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/5.jpg" class="gallery-image" alt="Greenwich Image 5" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/6.jpg" class="gallery-image" alt="Greenwich Image 6" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/7.jpeg" class="gallery-image" alt="Greenwich Image 7" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/8.jpg" class="gallery-image" alt="Greenwich Image 8" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/9.jpg" class="gallery-image" alt="Greenwich Image 9" onclick="openModal(this.src)" />
+        <img src="images/4-Greenwich/10.jpg" class="gallery-image" alt="Greenwich Image 10" onclick="openModal(this.src)" />
+      </div>
+
+      <button class="scroll-btn right-btn" onclick="scrollGallery(1)">›</button>
+    </div>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+      <img id="modalImage" />
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div class="footer-logo">
+            <img src="images/PMB.jpg" alt="PMB Curtain Walling Ltd Logo" class="logo" />
+            <span class="footer-company-name">PMB Curtainwalling Ltd</span>
+          </div>
+          <p class="footer-description">Precision-engineered curtain wall and façade solutions that transform architectural vision into reality.</p>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contact Information</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span class="text">London, United Kingdom</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📞</span>
+            <span class="text">+44 7715 129971</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📧</span>
+            <span class="text">marius.pmbcurtainwalling@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 PMB Curtain Walling Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    function scrollGallery(direction) {
+      const gallery = document.querySelector('.gallery');
+      const scrollAmount = gallery.clientWidth;
+      gallery.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    function openModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
